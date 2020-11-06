@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Prism.Mvvm;
 using Prism.Regions;
+using ProtoMap.Core.Logging;
 
 namespace ProtoMap.ViewModels.Launcher
 {
     public class CreateProjectViewModel : BindableBase, INavigationAware
     {
+        public CreateProjectViewModel()
+        {
+        }
+
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
         }
