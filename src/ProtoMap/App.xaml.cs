@@ -50,12 +50,10 @@ namespace ProtoMap
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.ExceptionObject is ContainerException containerException)
-            {
                 if (Debugger.IsAttached)
                     Debugger.Break();
 
-                // TODO: Implement fatal logging
-            }
+            // TODO: Implement fatal logging
         }
     }
 }

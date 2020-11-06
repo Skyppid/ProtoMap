@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -19,7 +18,7 @@ namespace ProtoMap.ViewModels.Launcher
 
             CreateProjectCommand = new DelegateCommand(ExecuteCreateProject);
             LoadProjectCommand = new DelegateCommand(ExecuteLoadProject);
-            
+
 #if DEBUG
             PopulateTestItems();
 #endif

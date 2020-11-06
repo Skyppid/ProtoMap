@@ -23,7 +23,7 @@ namespace ProtoMap.Core.Logging.Internal
         private void EnsureDirectory(string logDirectory)
         {
             if (Directory.Exists(logDirectory)) return;
-            
+
             try
             {
                 Directory.CreateDirectory(logDirectory);

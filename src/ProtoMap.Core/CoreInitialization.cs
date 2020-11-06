@@ -8,7 +8,8 @@ namespace ProtoMap.Core
     {
         internal static void InitializeCoreServices(IContainer container)
         {
-            container.Register<ILoggingFactory, LoggingFactory>(Reuse.Singleton, Made.Of(() => new LoggingFactory(null)));
+            container.Register<ILoggingFactory, LoggingFactory>(Reuse.Singleton,
+                Made.Of(() => new LoggingFactory(null)));
         }
     }
 }
