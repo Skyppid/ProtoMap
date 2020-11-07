@@ -11,6 +11,6 @@ namespace ProtoMap.Core
         /// <summary>
         /// Gets the application-wide IOC container.
         /// </summary>
-        IContainer Container { get; }
+        Container Container { get; }
     }
 }

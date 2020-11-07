@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="DataModelSystem\" />
-    <Folder Include="ProjectSystem\" />
     <Folder Include="Utilities\Extensions\" />
   </ItemGroup>
 

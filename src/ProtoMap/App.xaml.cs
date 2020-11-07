@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using DryIoc;
@@ -34,11 +33,11 @@ namespace ProtoMap
         /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public new IContainer Container { get; private set; }
+        public new Container Container { get; private set; }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            var container = Container = containerRegistry.GetContainer();
+            var container = Container = (Container)containerRegistry.GetContainer();
             
             // Setup the core internal services
             CoreInitialization.InitializeCoreServices(container);
