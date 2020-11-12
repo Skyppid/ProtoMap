@@ -47,6 +47,11 @@ namespace ProtoMap.Core.Logging.Internal
             return config;
         }
 
+        public LoggerConfiguration CreateUsingDefaultsCustomPath(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
         public LoggerConfiguration CreateCustom()
         {
             return new LoggerConfiguration();

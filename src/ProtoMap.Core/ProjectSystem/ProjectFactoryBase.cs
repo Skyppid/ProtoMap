@@ -11,7 +11,7 @@ namespace ProtoMap.Core.ProjectSystem
         /// Creates a new project and sets up the project directory as required.
         /// </summary>
         /// <returns>The created project instance.</returns>
-        public abstract Task<TProject> CreateProject();
+        public abstract Task<TProject> CreateProject(ProjectMetadataBase meta);
 
         /// <summary>
         /// Loads a project from a file / folder.

@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using DryIoc;
+using ProtoMap.Core.Logging;
 using Serilog;
 
 namespace ProtoMap.Core.ProjectSystem
@@ -13,12 +15,25 @@ namespace ProtoMap.Core.ProjectSystem
         /// Constructor base for a project.
         /// </summary>
         /// <param name="environment">The ProtoMap environment.</param>
+        /// <param name="factory">The logging factory.</param>
         /// <param name="projectDirectory">The project directory.</param>
-        protected ProtoProjectBase(IProtoEnvironment environment, DirectoryInfo projectDirectory)
+        protected ProtoProjectBase(IProtoEnvironment environment, ILoggingFactory factory, DirectoryInfo projectDirectory, ProjectMetadataBase? meta = null)
         {
             Environment = environment;
             Meta = environment.Container.Resolve<ProjectMetadataBase>();
             ProjectDirectory = projectDirectory;
+            ProjectLogging = factory.CreateUsingDefaultsCustomPath(Path.Combine(projectDirectory.FullName, "project.log"))
+                .CreateLogger();
+
+            if (meta == null) return;
+            try
+            {
+                meta.CopyTo(Meta);
+            }
+            catch (NotSupportedException)
+            {
+                ProjectLogging.Warning("The provided meta data cannot be used. It does not support copying.");
+            }
         }
 
         /// <summary>
@@ -39,6 +54,6 @@ namespace ProtoMap.Core.ProjectSystem
         /// <summary>
         /// Gets the project logger.
         /// </summary>
-        protected ILogger? ProjectLogging { get; private set; }
+        protected ILogger ProjectLogging { get; private set; }
     }
 }
