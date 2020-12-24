@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
+using ProtoMap.Core.PluginSystem;
 
 namespace ProtoMap.Core.ProjectSystem
 {
@@ -16,11 +14,47 @@ namespace ProtoMap.Core.ProjectSystem
         ///
         /// <param name="key">          The key.    </param>
         /// <param name="dataType">     Type of the data.   </param>
+        /// <param name="token">        The token of the plugin which registers the metadata.  </param>
+        /// <param name="defaultValue"> The default value.  </param>
+        ///
+        /// <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.RegisterMetadata(string,Type,PluginIdentityToken,object)"/>
+        /// <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.RegisterMetadata(string,Type,object)"/>
+        ///-------------------------------------------------------------------------------------------------
+        public abstract void RegisterMetadata(string key, Type dataType, PluginIdentityToken token, object defaultValue);
+
+        ///-------------------------------------------------------------------------------------------------
+        /// <summary>   Deregisters all metadata described registered by the given plugin.    </summary>
+        ///
+        /// <param name="token">    The token of the plugin which registered the metadata.   </param>
+        ///
+        /// <returns>   True if it succeeds, false if it fails. </returns>
+        ///-------------------------------------------------------------------------------------------------
+        public abstract bool DeregisterAllMetadata(PluginIdentityToken token);
+
+        ///-------------------------------------------------------------------------------------------------
+        /// <summary>   Deregisters the metadata.   </summary>
+        ///
+        /// <param name="key">      The key.    </param>
+        /// <param name="token">    The token of the plugin which registered the metadata.  </param>
+        ///
+        /// <returns>   True if it succeeds, false if it fails. </returns>
+        ///-------------------------------------------------------------------------------------------------
+        public abstract bool DeregisterMetadata(string key, PluginIdentityToken token);
+
+        ///-------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Registers a metadata field. This is required for the underlying implementation to know
+        ///     which data could be available and in which form. Used for internal services as they don't
+        ///     own an identity token.
+        /// </summary>
+        ///
+        /// <param name="key">          The key.    </param>
+        /// <param name="dataType">     Type of the data.   </param>
         /// <param name="defaultValue"> The default value.  </param>
         ///
         /// <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.RegisterMetadata(string,Type,object)"/>
         ///-------------------------------------------------------------------------------------------------
-        public abstract void RegisterMetadata(string key, Type dataType, object defaultValue);
+        internal abstract void RegisterMetadata(string key, Type dataType, object defaultValue);
 
         ///-------------------------------------------------------------------------------------------------
         /// <summary>   Query if <typeparamref name="T"/> is a supported data type.  </summary>
@@ -42,32 +76,27 @@ namespace ProtoMap.Core.ProjectSystem
         ///-------------------------------------------------------------------------------------------------
         public abstract bool IsSupportedDataType(Type type);
 
-        ///-------------------------------------------------------------------------------------------------
-        /// <summary>   Sets the registered metadata field with the given value.    </summary>
-        ///
-        /// <typeparam name="T">    Generic type parameter. </typeparam>
+        /// -------------------------------------------------------------------------------------------------
+        ///  <summary>   Sets the registered metadata field with the given value.    </summary>
+        /// 
+        ///  <typeparam name="T">    Generic type parameter. </typeparam>
         /// <param name="key">      The key.    </param>
         /// <param name="value">    The value.  </param>
-        /// <param name="replace">  (Optional) True to replace if already existing. </param>
-        ///
         /// <returns>   True if it succeeds, false if it fails. </returns>
-        ///
-        /// <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.Set{T}(string,T,bool)"/>
-        ///-------------------------------------------------------------------------------------------------
-        public abstract bool Set<T>(string key, T value, bool replace = false);
+        /// 
+        ///  <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.Set{T}(string,T,bool)"/>
+        /// -------------------------------------------------------------------------------------------------
+        public abstract bool Set<T>(string key, T value);
 
-        ///-------------------------------------------------------------------------------------------------
-        /// <summary>   Sets the registered metadata field with the given value.    </summary>
-        ///
-        /// <param name="key">      The key.    </param>
-        /// <param name="value">    The value.  </param>
-        /// <param name="replace">  (Optional) True to replace if already existing. </param>
-        ///
-        /// <returns>   True if it succeeds, false if it fails. </returns>
-        ///
-        /// <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.Set(string,object,bool)"/>
-        ///-------------------------------------------------------------------------------------------------
-        public abstract bool Set(string key, object value, bool replace = false);
+        ///// -------------------------------------------------------------------------------------------------
+        /////  <summary>   Sets the registered metadata field with the given value.    </summary>
+        ///// <param name="key">      The key.    </param>
+        ///// <param name="value">    The value.  </param>
+        ///// <returns>   True if it succeeds, false if it fails. </returns>
+        ///// 
+        /////  <seealso cref="M:ProtoMap.Core.ProjectSystem.ProjectMetadataBase.Set(string,object,bool)"/>
+        ///// -------------------------------------------------------------------------------------------------
+        //public abstract bool Set(string key, object value);
 
         ///-------------------------------------------------------------------------------------------------
         /// <summary>   Gets the value from the registered metadata field.   </summary>
@@ -80,15 +109,15 @@ namespace ProtoMap.Core.ProjectSystem
         ///-------------------------------------------------------------------------------------------------
         public abstract bool Get<T>(string key, out T value);
 
-        ///-------------------------------------------------------------------------------------------------
-        /// <summary>   Gets the value from the registered metadata field.  </summary>
-        ///
-        /// <param name="key">      The key.    </param>
-        /// <param name="value">    [out] The value.    </param>
-        ///
-        /// <returns>   True if it succeeds, false if it fails. </returns>
-        ///-------------------------------------------------------------------------------------------------
-        public abstract bool Get(string key, out object value);
+        /////-------------------------------------------------------------------------------------------------
+        ///// <summary>   Gets the value from the registered metadata field.  </summary>
+        /////
+        ///// <param name="key">      The key.    </param>
+        ///// <param name="value">    [out] The value.    </param>
+        /////
+        ///// <returns>   True if it succeeds, false if it fails. </returns>
+        /////-------------------------------------------------------------------------------------------------
+        //public abstract bool Get(string key, out object value);
 
         ///-------------------------------------------------------------------------------------------------
         /// <summary>   Copies the meta data into another meta data object. </summary>
